@@ -39,7 +39,7 @@ while True:
         print
         linecount = 0
         for x,y in enumerate(entry):
-            print linecount,'>' + y,
+            print linecount,thing + '>' + y,
             linecount = linecount + 1
     elif text == 'exxit':
         break
