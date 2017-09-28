@@ -11,7 +11,7 @@ if not os.path.exists(fwd):
    os.makedirs(fwd)
 
 title = 'Stammer'
-version = '1.0'
+version = '1.1'
 
 entry = []
 linecount = 0
