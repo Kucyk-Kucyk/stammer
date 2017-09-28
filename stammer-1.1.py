@@ -2,34 +2,45 @@ import os
 import msvcrt
 import time
 
+os.system('cls')
 os.system('color 06')  
 os.system('title Stammer')
-os.system('mode con:cols=30 lines=30')
 cwd = os.getcwd()
+fwd = os.path.join(cwd, r'stammerfiles')
+if not os.path.exists(fwd):
+   os.makedirs(fwd)
 
 title = 'Stammer'
 version = '1.0'
-dev = 'kucyk-kucyk presents'
 
 entry = []
 linecount = 0
 tabnum = 0
+spaces = '    '
+thing = '  '
 yestab = ['if','elif','else','while','for','def']
 
 print title, version
 print
 
 while True:
-    tab = tabnum * '    '
+    tab = tabnum * spaces
     
     print linecount,
-    text = raw_input('>' + tab)
+    text = raw_input(thing + '>' + tab)
 
     for x in yestab:
         if x in text:
             tabnum = tabnum + 1
     if text == '\t':
-        tabnum = 0
+        tabnum = tabnum - 1
+        os.system('cls')
+        print title, version
+        print
+        linecount = 0
+        for x,y in enumerate(entry):
+            print linecount,'>' + y,
+            linecount = linecount + 1
     elif text == 'exxit':
         break
     elif text == 'saave':
@@ -38,7 +49,7 @@ while True:
             print title, version
             print
             name = raw_input('Save under what name ?\n')
-            file = open('%s.py' % name,'w')
+            file = open('%s\\%s.py' % (fwd, name),'w')
             file.write(''.join(entry))
             file.close()
             linecount = 0
@@ -65,8 +76,8 @@ while True:
         os.system('cls')
         print title, version
         print
-        for line in open('%s.py' % name,'r'):
-            print linecount,'>'+line,
+        for line in open('%s\\%s.py' % (fwd, name),'r'):
+            print linecount, thing + '>' + line,
             entry.append(line)
             linecount = linecount + 1
     elif text == 'eddit':
@@ -75,7 +86,7 @@ while True:
         print
         linecount = 0
         for x,y in enumerate(entry):
-                print linecount,'>' + y,
+                print linecount, thing + '>' + y,
                 linecount = linecount + 1
         print
         name = raw_input('Edit what line ?\n')
@@ -85,7 +96,7 @@ while True:
         print
         linecount = 0
         for x,y in enumerate(entry):
-                print linecount,'>' + y,
+                print linecount, thing + '>' + y,
                 linecount = linecount + 1
         print
         overwrite = raw_input('Replace with what ?\n')
@@ -95,7 +106,7 @@ while True:
         print
         linecount = 0
         for x,y in enumerate(entry):
-                print linecount,'>' + y,
+                print linecount, thing + '>' + y,
                 linecount = linecount + 1
     elif text == 'ruun':
         os.system('cls')
@@ -107,12 +118,12 @@ while True:
         os.system('cls')
         os.system('color 06')  
         os.system('title Stammer')
-        os.system('mode con:cols=30 lines=30')
         print title, version
         print
     elif text == 'cllear':
         os.system('cls')
         print title, version
+        print
         linecount = 0
         entry = []
         save = []
@@ -124,13 +135,15 @@ while True:
         linecount = 0
         del entry[-1]
         for x,y in enumerate(entry):
-                print linecount,'>' + y,
+                print linecount, thing + '>' + y,
                 linecount = linecount + 1
     elif text == 'heelp':
         os.system('cls')
         print title, version
         print
         print '   H E E L P'
+        print
+        print '   tab + enter : del ident.'
         print
         print '   oppen  : open file.'
         print '   saave  : save file.'
@@ -141,8 +154,17 @@ while True:
         print '   exxit  : exit stammer.'
         print
     else :
-        linecount = linecount + 1
-        entry.append(tab+text+'\n')
+        if linecount + 1 == 10 :
+            thing = ' '
+            linecount = linecount + 1
+            entry.append(tab+text+'\n')
+        elif linecount + 1 == 100 :
+            thing = ''
+            linecount = linecount + 1
+            entry.append(tab+text+'\n')
+        else :
+            linecount = linecount + 1
+            entry.append(tab+text+'\n')
         
 
 
